@@ -62,8 +62,24 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 
+<!--alisson -->
 
 {{--Exibir tudo o que tem na tabela series, no banco de dados--}}
 $series = Serie::all();
 var_dump($series);
 exit();
+
+
+Criar um projeto por composer com laravel:
+> composer create-project --prefer-dist laravel/laravel nomedoprojeto
+
+Subir o servidor:
+> php artisan serve
+
+
+
+protected $namespace = 'App/Http/Controllers';
+
+			->namespace($this->namespace)
+			->namespace($this->namespace)
+
