@@ -6,12 +6,14 @@ use App\Http\Requests\SeriesFormRequest;
 use App\Serie;
 use App\Temporada;
 use App\Episodio;
+
 use App;
 
 use App\Services\CriadorDeSerie;
 use App\Http\Controllers\TemporadasController;
 use App\Services\RemovedorDeSerie;
 use Illuminate\Http\Request;
+
 
 class SeriesController extends Controller
 {
@@ -57,4 +59,13 @@ public function destroy(Request $request, RemovedorDeSerie $removedorDeSerie)
         );
     return redirect()->route('listar_series');
 }
+
+public function editaNome(int $id, Request $request)
+{
+    $novoNome       = $request->nome;
+    $serie          = Serie::find($id);
+    $serie->nome    = $novoNome;
+    $serie->save();
+}
+
 }

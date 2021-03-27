@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SeriesController;
+use App\Http\Controllers\TemporadasController;
 
 
 /*
@@ -17,10 +18,15 @@ use App\Http\Controllers\SeriesController;
 */
 
 
-Route::get('/series'                            , 'SeriesController@index')->name('listar_series');
-Route::get('/series/criar'                      , 'SeriesController@create')->name('form_criar_serie');
-Route::post('/series/criar'                     , 'SeriesController@store');
-Route::delete('/series/{id}'                    , 'SeriesController@destroy');
-Route::delete('/series/{id}'                    , 'SeriesController@destroy');
+Route::get('/series'                                                ,   'SeriesController@index')->name('listar_series');
+Route::get('/series/criar'                                          ,   'SeriesController@create')->name('form_criar_serie');
+Route::get('/series/{serieId}/temporadas'                           ,   'TemporadasController@index');
 
-Route::get('/series/{serieId}/temporadas'     , 'TemporadasController@index');
+Route::post('/series/criar'                                         ,   'SeriesController@store');
+Route::post('/series/{id}/editaNome'                                ,   'SeriesController@editaNome');
+
+Route::delete('/series/{id}'                                        ,   'SeriesController@destroy');
+Route::delete('/series/{id}'                                        ,   'SeriesController@destroy');
+
+Route::get('/temporadas/{temporada}/episodios'                      ,   'EpisodiosController@index');
+Route::post('/temporadas/{temporada}/episodios/assistir'            ,   'EpisodiosController@assistir');

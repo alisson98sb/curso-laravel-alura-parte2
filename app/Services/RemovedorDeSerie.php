@@ -3,24 +3,49 @@
 namespace App\Services;
 use App\{Serie, Temporada, Episodio};
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Void_;
 
-class RemovedorDeSerie {
+
+class RemovedorDeSerie
+{
     public function removerSerie(int $serieId): string
     {
-        $nomeSerie = ''; 
-        DB::transaction(function () use($serieId, &$nomeSerie){
-                $serie = Serie::find($serieId);
-                $nomeSerie = $serie->nome;
-                $serie->temporadas->each(function (Temporada $temporada) {
-                $temporada->episodios()->each(function(Episodio $episodio) {
-                    $episodio->delete();
-                });
-                $temporada->delete();
-        
-            });
+        $nomeSerie = '';
+        DB::transaction( function () use ($serieId, &$nomeSerie){
+
+            $serie = Serie::find($serieId);
+            $nomeSerie = $serie->nome;
+
+
+
+
+            $this->removerTemporadas($serie);
             $serie->delete();
+
         });
 
-    return $nomeSerie;
+        return $nomeSerie;
+
+    }
+
+    private function removerTemporadas(Serie $serie): void
+    {
+        $serie->temporadas->each(function (Temporada $temporada) {
+
+
+           $this->removerEpisodios($temporada);
+           $temporada->delete();
+
+        });
+
+
+    }
+
+    private function removerEpisodios(Temporada $temporada): void
+    {
+        $temporada->episodios()->each(function (Episodio $episodio) {
+            $episodio->delete();
+        });
+
     }
 }
