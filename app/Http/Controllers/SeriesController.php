@@ -38,7 +38,7 @@ class SeriesController extends Controller
         $request->nome,
         $request->qtd_temporadas,
         $request->ep_por_temporada
-    ); 
+    );
     $request->session()
         ->flash(
             'mensagem',
